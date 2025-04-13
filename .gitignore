@@ -40,3 +40,6 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+
+### Игорируем проперти файлы
+src/test/resources/*.properties
