@@ -1,6 +1,8 @@
 package ui;
 
 import configs.TestConfig;
+import configs.TestPropertiesConfig;
+import org.aeonbits.owner.ConfigFactory;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -16,13 +18,15 @@ public class DZ8 {
     //TestConfig config = new TestConfig();
     //String BASE_URL = config.getBaseUrl();
 
-    Properties properties = new Properties();
-    String baseUrl = properties.getProperty("baseUrl");
+    //Properties properties = new Properties();
+    //String baseUrl = properties.getProperty("baseUrl");
+
+    TestPropertiesConfig config = ConfigFactory.create(TestPropertiesConfig.class, System.getProperties());
 
     @BeforeEach
     void setup() {
         driver = new ChromeDriver();
-        driver.get(baseUrl);
+        driver.get(config.getBaseUrl());
         driver.manage().window().maximize();
     }
 
@@ -35,10 +39,10 @@ public class DZ8 {
     void proverkaTextInput() throws InterruptedException {
 
         WebElement textInput = driver.findElement(By.id("my-text-id"));
-        textInput.sendKeys("Halo");
+        textInput.sendKeys(config.getUsername());
         String enteredValue = textInput.getAttribute("value");
         Thread.sleep(1000);
-        assertEquals("Halo", enteredValue);
+        assertEquals(config.getUsername(), enteredValue);
 
         WebElement textInputLabel = driver.findElement(By.xpath("//label[normalize-space(.)='Text input']"));
         String textInputText = textInputLabel.getText();
@@ -49,10 +53,10 @@ public class DZ8 {
     void proverkaPassword() throws InterruptedException {
 
         WebElement password = driver.findElement(By.name("my-password"));
-        password.sendKeys("ololo");
+        password.sendKeys(config.getPassword());
         String enteredValue = password.getAttribute("value");
         Thread.sleep(1000);
-        assertEquals("ololo", enteredValue);
+        assertEquals(config.getPassword(), enteredValue);
 
         WebElement passwordLabel = driver.findElement(By.xpath("//label[normalize-space(.)='Password']"));
         String passwordText = passwordLabel.getText();

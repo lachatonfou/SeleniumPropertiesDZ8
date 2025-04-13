@@ -17,6 +17,7 @@ dependencies {
     testImplementation("org.assertj:assertj-core:3.22.0")
     implementation 'io.qameta.allure:allure-junit5:2.25.0'
     implementation 'commons-io:commons-io:2.16.0'
+    testImplementation 'org.aeonbits.owner:owner:1.0.12'
 }
 
 test {
